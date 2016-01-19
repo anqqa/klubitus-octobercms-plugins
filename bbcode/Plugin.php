@@ -112,8 +112,7 @@ class Plugin extends PluginBase {
             'extension' => '',
             'emoticons' => EmoticonModel::getEmoticons(),
         ]));
-
-        $decoda->addHook(new Decoda\Hook\ClickableHook());
+        $decoda->addHook(new Classes\ClickableHook());
         $decoda->addFilter(new Decoda\Filter\DefaultFilter());
         $decoda->addFilter(new Decoda\Filter\BlockFilter());
         $decoda->addFilter(new Decoda\Filter\EmailFilter());

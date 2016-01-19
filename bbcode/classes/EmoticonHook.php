@@ -13,7 +13,7 @@ class EmoticonHook extends DecodaEmoticonHook {
             return;
         }
 
-        $this->_emoticons = Arr::get($this->_config, 'emoticons', []);
+        $this->_emoticons = $this->getConfig('emoticons');
 
         foreach ($this->_emoticons as $path => $notations) {
             foreach ($notations as $smiley) {
@@ -36,9 +36,9 @@ class EmoticonHook extends DecodaEmoticonHook {
         }
 
         if ($isXhtml) {
-            $tpl = '<img src="%s" alt="%s" />';
+            $tpl = '<img src="%s" alt="" title="%s" />';
         } else {
-            $tpl = '<img src="%s" alt="%s">';
+            $tpl = '<img src="%s" alt="" title="%s">';
         }
 
         return sprintf($tpl, $this->_smilies[$smiley], $smiley);
