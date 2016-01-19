@@ -2,6 +2,7 @@
 
 use Backend;
 use Decoda;
+use Klubitus\BBCode\Models\Emoticon as EmoticonModel;
 use System\Classes\PluginBase;
 use URL;
 
@@ -106,10 +107,12 @@ class Plugin extends PluginBase {
             'escapeHtml'  => true,
         ]);
 
-        $decoda->addHook(new Decoda\Hook\EmoticonHook([
-            'path'      => URL::to('plugins/klubitus/bbcode/emoticons') . '/',
-            'extension' => 'gif'
+        $decoda->addHook(new Classes\EmoticonHook([
+            'path'      => '/',
+            'extension' => '',
+            'emoticons' => EmoticonModel::getEmoticons(),
         ]));
+
         $decoda->addHook(new Decoda\Hook\ClickableHook());
         $decoda->addFilter(new Decoda\Filter\DefaultFilter());
         $decoda->addFilter(new Decoda\Filter\BlockFilter());
@@ -120,6 +123,6 @@ class Plugin extends PluginBase {
         $decoda->addFilter(new Decoda\Filter\UrlFilter());
         $decoda->addFilter(new Decoda\Filter\VideoFilter());
 
-        return 'Parsed: ' . $decoda->parse();
+        return $decoda->parse();
     }
 }
