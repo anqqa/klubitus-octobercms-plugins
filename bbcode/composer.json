@@ -1,0 +1,6 @@
+{
+    "name": "klubitus/bbcode",
+    "require": {
+        "mjohnson/decoda": "6.*"
+    }
+}

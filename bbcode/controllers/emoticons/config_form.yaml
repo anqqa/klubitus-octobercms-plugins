@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Emoticon
+
+# Model Form Field configuration
+form: $/klubitus/bbcode/models/emoticon/fields.yaml
+
+# Model Class name
+modelClass: Klubitus\BBCode\Models\Emoticon
+
+# Default redirect location
+defaultRedirect: klubitus/bbcode/emoticons
+
+# Create page
+create:
+    title: Create Emoticon
+    redirect: klubitus/bbcode/emoticons/update/:id
+    redirectClose: klubitus/bbcode/emoticons
+
+# Update page
+update:
+    title: Edit Emoticon
+    redirect: klubitus/bbcode/emoticons
+    redirectClose: klubitus/bbcode/emoticons
+
+# Preview page
+preview:
+    title: Preview Emoticon
