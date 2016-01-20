@@ -102,24 +102,28 @@ class Plugin extends PluginBase {
 
     public function parse($text) {
         $decoda = new Decoda\Decoda($text, [
-            'xhtmlOutput' => false,
-            'strictMode'  => false,
             'escapeHtml'  => true,
+            'maxNewLines' => 3,
+            'strictMode'  => false,
+            'xhtmlOutput' => false,
         ]);
 
+        // Custom hooks and filters
         $decoda->addHook(new Classes\EmoticonHook([
             'path'      => '/',
             'extension' => '',
             'emoticons' => EmoticonModel::getEmoticons(),
         ]));
         $decoda->addHook(new Classes\ClickableHook());
+        $decoda->addFilter(new Classes\UrlFilter());
+
+        // Decoda hooks and filters
         $decoda->addFilter(new Decoda\Filter\DefaultFilter());
         $decoda->addFilter(new Decoda\Filter\BlockFilter());
         $decoda->addFilter(new Decoda\Filter\EmailFilter());
         $decoda->addFilter(new Decoda\Filter\ImageFilter());
         $decoda->addFilter(new Decoda\Filter\ListFilter());
         $decoda->addFilter(new Decoda\Filter\QuoteFilter());
-        $decoda->addFilter(new Decoda\Filter\UrlFilter());
         $decoda->addFilter(new Decoda\Filter\VideoFilter());
 
         return $decoda->parse();
