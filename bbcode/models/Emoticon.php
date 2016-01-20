@@ -50,14 +50,18 @@ class Emoticon extends Model {
 
 
     public static function getEmoticons() {
-        $images    = Emoticon::get();
-        $emoticons = [];
+        static $emoticons;
 
-        foreach ($images as $image) {
-            $notations = array_pluck($image->notation, 'notation');
-            $path      = $image->emoticon->getPath();
+        if (is_null($emoticons)) {
+            $images = Emoticon::with('emoticon')->get();
+            $emoticons = [];
 
-            $emoticons[$path] = $notations;
+            foreach ($images as $image) {
+                $notations = array_pluck($image->notation, 'notation');
+                $path = $image->emoticon->getPath();
+
+                $emoticons[$path] = $notations;
+            }
         }
 
         return $emoticons;
