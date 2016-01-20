@@ -27,61 +27,10 @@ class Plugin extends PluginBase {
     }
 
 
-    /**
-     * Registers any front-end components implemented in this plugin.
-     *
-     * @return array
-     */
-    public function registerComponents() {
-        return []; // Remove this line to activate
-
-        return [
-            'Klubitus\BBCode\Components\MyComponent' => 'myComponent',
-        ];
-    }
-
-
     public function registerMarkupTags() {
         return [
             'filters' => [
                 'bbcode' => [$this, 'parse'],
-            ],
-        ];
-    }
-
-
-    /**
-     * Registers any back-end permissions used by this plugin.
-     *
-     * @return array
-     */
-    public function registerPermissions() {
-        return []; // Remove this line to activate
-
-        return [
-            'klubitus.bbcode.some_permission' => [
-                'tab' => 'BBCode',
-                'label' => 'Some permission'
-            ],
-        ];
-    }
-
-
-    /**
-     * Registers back-end navigation items for this plugin.
-     *
-     * @return array
-     */
-    public function registerNavigation() {
-        return []; // Remove this line to activate
-
-        return [
-            'bbcode' => [
-                'label'       => 'BBCode',
-                'url'         => Backend::url('klubitus/bbcode/mycontroller'),
-                'icon'        => 'icon-leaf',
-                'permissions' => ['klubitus.bbcode.*'],
-                'order'       => 500,
             ],
         ];
     }
@@ -116,6 +65,7 @@ class Plugin extends PluginBase {
         ]));
         $decoda->addHook(new Classes\ClickableHook());
         $decoda->addFilter(new Classes\AudioFilter());
+        $decoda->addFilter(new Classes\VideoFilter());
         $decoda->addFilter(new Classes\UrlFilter());
 
         // Decoda hooks and filters
@@ -125,7 +75,6 @@ class Plugin extends PluginBase {
         $decoda->addFilter(new Decoda\Filter\ImageFilter());
         $decoda->addFilter(new Decoda\Filter\ListFilter());
         $decoda->addFilter(new Decoda\Filter\QuoteFilter());
-        $decoda->addFilter(new Decoda\Filter\VideoFilter());
 
         return $decoda->parse();
     }
