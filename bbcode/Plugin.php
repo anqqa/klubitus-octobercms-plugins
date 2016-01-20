@@ -115,6 +115,7 @@ class Plugin extends PluginBase {
             'emoticons' => EmoticonModel::getEmoticons(),
         ]));
         $decoda->addHook(new Classes\ClickableHook());
+        $decoda->addFilter(new Classes\AudioFilter());
         $decoda->addFilter(new Classes\UrlFilter());
 
         // Decoda hooks and filters
