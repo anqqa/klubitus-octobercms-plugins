@@ -1,6 +1,7 @@
 <?php namespace Klubitus\BBCode\Classes;
 
 use Decoda\Filter\UrlFilter as DecodaUrlFilter;
+use Request;
 
 class UrlFilter extends DecodaUrlFilter {
 
@@ -12,7 +13,7 @@ class UrlFilter extends DecodaUrlFilter {
      * @return string
      */
     public function parse(array $tag, $content) {
-        $host = array_get($_SERVER, 'HTTP_HOST', 'localhost');
+        $host = Request::server('HTTP_HOST', 'localhost');
         $url  = array_get($tag['attributes'], 'href', $content);
 
         if (!isset($tag['attributes']['target']) && strpos($url, $host) === false) {

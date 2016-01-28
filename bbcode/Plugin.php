@@ -49,33 +49,50 @@ class Plugin extends PluginBase {
     }
 
 
-    public function parse($text) {
-        $decoda = new Decoda\Decoda($text, [
-            'escapeHtml'  => true,
-            'maxNewLines' => 3,
-            'strictMode'  => false,
-            'xhtmlOutput' => false,
-        ]);
+    public function parse($text, $plain = false) {
+        static $fullParser, $plainParser;
 
-        // Custom hooks and filters
-        $decoda->addHook(new Classes\EmoticonHook([
-            'path'      => '/',
-            'extension' => '',
-            'emoticons' => EmoticonModel::getEmoticons(),
-        ]));
-        $decoda->addHook(new Classes\ClickableHook());
-        $decoda->addFilter(new Classes\AudioFilter());
-        $decoda->addFilter(new Classes\VideoFilter());
-        $decoda->addFilter(new Classes\UrlFilter());
+        // Create parser if not already created
+        if (($plain && !$plainParser) || (!$plain && !$fullParser)) {
+            $parser = new Classes\BBCodeParser(null, [
+                'escapeHtml'  => true,
+                'maxNewLines' => 3,
+                'strictMode'  => false,
+                'xhtmlOutput' => false,
+            ]);
 
-        // Decoda hooks and filters
-        $decoda->addFilter(new Decoda\Filter\DefaultFilter());
-        $decoda->addFilter(new Decoda\Filter\BlockFilter());
-        $decoda->addFilter(new Decoda\Filter\EmailFilter());
-        $decoda->addFilter(new Decoda\Filter\ImageFilter());
-        $decoda->addFilter(new Decoda\Filter\ListFilter());
-        $decoda->addFilter(new Decoda\Filter\QuoteFilter());
+            // Custom hooks and filters
+            $parser->addHook(new Classes\EmoticonHook([
+                'path'      => '/',
+                'extension' => '',
+                'emoticons' => EmoticonModel::getEmoticons(),
+            ]));
+            $parser->addHook(new Classes\ClickableHook());
+            $plain or $parser->addFilter(new Classes\AudioFilter());
+            $plain or $parser->addFilter(new Classes\VideoFilter());
+            $parser->addFilter(new Classes\UrlFilter());
 
-        return $decoda->parse();
+            // Decoda hooks and filters
+            $parser->addFilter(new Decoda\Filter\DefaultFilter());
+            $parser->addFilter(new Decoda\Filter\BlockFilter());
+            $parser->addFilter(new Decoda\Filter\EmailFilter());
+            $plain or $parser->addFilter(new Decoda\Filter\ImageFilter());
+            $parser->addFilter(new Decoda\Filter\ListFilter());
+            $parser->addFilter(new Decoda\Filter\QuoteFilter());
+
+            if ($plain) {
+                $plainParser = $parser;
+            }
+            else {
+                $fullParser = $parser;
+            }
+        }
+        else {
+            $parser = $plain ? $plainParser : $fullParser;
+        }
+
+        $parser->setString($text);
+
+        return $parser->parse();
     }
 }
