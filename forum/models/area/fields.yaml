@@ -1,0 +1,38 @@
+# ===================================
+#  Form Field Definitions
+# ===================================
+
+fields:
+    parent:
+        label: Parent
+        type: relation
+        nameFrom: name
+        emptyOption: - None -
+
+    name:
+        label: Name
+        span: left
+
+    description:
+        label: Description
+        type: textarea
+        size: tiny
+
+    is_moderated:
+        label: Moderated
+        comment: Only moderators can start new topics in this area.
+        type: checkbox
+        span: auto
+
+    is_private:
+        label: Private
+        comment: Only authenticated users can list topics.
+        type: checkbox
+        span: auto
+
+    is_hidden:
+        label: Hidden
+        comment: Hide this area from the main area list.
+        type: checkbox
+        span: auto
+

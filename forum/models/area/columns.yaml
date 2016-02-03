@@ -1,0 +1,25 @@
+# ===================================
+#  List Column Definitions
+# ===================================
+
+columns:
+    name:
+        label: Name
+        searchable: true
+
+    description:
+        label: Description
+        searchable: true
+
+    is_moderated:
+        label: Moderated
+        type: switch
+
+    is_private:
+        label: Private
+        type: switch
+
+    is_hidden:
+        label: Hidden
+        type: switch
+

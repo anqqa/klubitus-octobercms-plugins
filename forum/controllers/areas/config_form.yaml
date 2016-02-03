@@ -1,0 +1,31 @@
+# ===================================
+#  Form Behavior Config
+# ===================================
+
+# Record name
+name: Area
+
+# Model Form Field configuration
+form: $/klubitus/forum/models/area/fields.yaml
+
+# Model Class name
+modelClass: Klubitus\Forum\Models\Area
+
+# Default redirect location
+defaultRedirect: klubitus/forum/areas
+
+# Create page
+create:
+    title: Create Area
+    redirect: klubitus/forum/areas/update/:id
+    redirectClose: klubitus/forum/areas
+
+# Update page
+update:
+    title: Edit Area
+    redirect: klubitus/forum/areas
+    redirectClose: klubitus/forum/areas
+
+# Preview page
+preview:
+    title: Preview Area
