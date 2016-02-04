@@ -14,6 +14,7 @@ class Area extends Model {
     use Validation;
 
     public $implement = ['@Rainlab.Translate.Behaviors.TranslatableModel'];
+    public $translatable = ['name', 'description'];
 
     /**
      * @var  string  The database table used by the model.
@@ -54,8 +55,6 @@ class Area extends Model {
     public $rules = [
         'name' => 'required',
     ];
-
-    public $translatable = ['name', 'description'];
 
 
     public function scopeIsPublic($query) {

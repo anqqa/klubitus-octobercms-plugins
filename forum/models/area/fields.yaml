@@ -12,10 +12,11 @@ fields:
     name:
         label: Name
         span: left
+        type: mltext
 
     description:
         label: Description
-        type: textarea
+        type: mltextarea
         size: tiny
 
     is_moderated:
