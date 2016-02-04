@@ -6,8 +6,7 @@ use October\Rain\Database\Updates\Migration;
 class CreateAreasTable extends Migration {
 
     public function up() {
-        Schema::create('forum_areas', function($table)
-        {
+        Schema::create('forum_areas', function($table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->timestamps();

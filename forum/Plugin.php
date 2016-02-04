@@ -9,13 +9,15 @@ use System\Classes\PluginBase;
 class Plugin extends PluginBase {
 
     public $require = [
-        'Rainlab.User',
+        'Klubitus.BBCode',
+        'RainLab.User',
     ];
+
 
     /**
      * Returns information about this plugin.
      *
-     * @return array
+     * @return  array
      */
     public function pluginDetails() {
         return [
@@ -30,14 +32,11 @@ class Plugin extends PluginBase {
     /**
      * Registers any front-end components implemented in this plugin.
      *
-     * @return array
+     * @return  array
      */
-    public function registerComponents()
-    {
-        return []; // Remove this line to activate
-
+    public function registerComponents() {
         return [
-            'Klubitus\Forum\Components\MyComponent' => 'myComponent',
+            'Klubitus\Forum\Components\Areas' => 'forumAreas',
         ];
     }
 

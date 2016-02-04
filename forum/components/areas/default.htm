@@ -1,0 +1,74 @@
+<section class="forum-areas forum-areas--detailed">
+    <table class="table">
+        {% for group in areas %}
+
+            <thead>
+                <tr class="forum-areas__group">
+                    <th><h1>{{ group.name }}</h1></th>
+                    <th class="table__count">{{ 'Topics'|_ }}</th>
+                    <th class="table__count">{{ 'Posts'|_ }}</th>
+                    <th>{{ 'Recent topic'|_ }}</th>
+                </tr>
+            </thead>
+
+            {% if group.relations.children %}
+                <tbody>
+
+                    {% for area in group.children %}
+
+                        <tr class="forum-areas__area">
+                            <td>
+                                <h2>
+                                    <a href="{{ area.url }}">{{ area.name }}</a>
+                                </h2>
+                                <p>
+                                    {{ area.description|raw }}
+                                </p>
+
+                                {% if area.children|length %}
+                                    <div class="forum-areas_subareas">
+                                        <ul>
+                                            {% for subarea in area.children %}
+
+                                                <li>
+                                                    <h3>
+                                                        <a href="{{ subarea.url }}">{{ subarea.name }}</a>
+                                                    </h3>
+                                                    <p>
+                                                        {{ subarea.description|raw }}
+                                                    </p>
+                                                </li>
+
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                {% endif %}
+
+                            </td>
+                            <td class="table__count">
+                                {{ area.topic_count }}
+                            </td>
+                            <td class="table__count">
+                                {{ area.post_count }}
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+            {% else %}
+                <tbody>
+                    <tr>
+                        <td colspan="4">
+                            {{ 'No areas available.'|_ }}
+                        </td>
+                    </tr>
+                </tbody>
+            {% endif %}
+
+        {% endfor %}
+    </table>
+</section>

@@ -1,8 +1,10 @@
 <?php namespace Klubitus\Forum\Models;
 
+use Cms\Classes\Controller;
 use Model;
 use October\Rain\Database\Traits\NestedTree;
 use October\Rain\Database\Traits\Validation;
+use Str;
 
 /**
  * Area Model
@@ -63,6 +65,21 @@ class Area extends Model {
 
     public function scopeIsVisible($query) {
         return $query->where('is_hidden', '<>', true);
+    }
+
+
+    /**
+     * Set current object url.
+     *
+     * @param  string      $pageName
+     * @param  Controller  $controller
+     */
+    public function setUrl($pageName, Controller $controller) {
+        $params = [
+            'area_id' => $this->id . '-' . Str::slug($this->name)
+        ];
+
+        return $this->url = $controller->pageUrl($pageName, $params);
     }
 
 }
