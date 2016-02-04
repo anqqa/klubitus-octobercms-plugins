@@ -3,7 +3,7 @@
         {% for group in areas %}
 
             <thead>
-                <tr class="forum-areas__group">
+                <tr>
                     <th><h1>{{ group.name }}</h1></th>
                     <th class="table__count">{{ 'Topics'|_ }}</th>
                     <th class="table__count">{{ 'Posts'|_ }}</th>
@@ -16,17 +16,21 @@
 
                     {% for area in group.children %}
 
-                        <tr class="forum-areas__area">
+                        <tr>
                             <td>
                                 <h2>
-                                    <a href="{{ area.url }}">{{ area.name }}</a>
+                                    {% if user or not area.is_private %}
+                                        <a href="{{ area.url }}">{{ area.name }}</a>
+                                    {% else %}
+                                        <span>{{ area.name }}</span>
+                                    {% endif %}
                                 </h2>
                                 <p>
                                     {{ area.description|raw }}
                                 </p>
 
-                                {% if area.children|length %}
-                                    <div class="forum-areas_subareas">
+                                {% if area.children|length and (user or not area.is_private) %}
+                                    <div>
                                         <ul>
                                             {% for subarea in area.children %}
 
@@ -46,10 +50,10 @@
 
                             </td>
                             <td class="table__count">
-                                {{ area.topic_count }}
+                                {{ user or not area.is_private ? area.topic_count|number_format }}
                             </td>
                             <td class="table__count">
-                                {{ area.post_count }}
+                                {{ user or not area.is_private ? area.post_count|number_format }}
                             </td>
                             <td>
 
